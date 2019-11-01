@@ -6,57 +6,43 @@ import {
     TextArea,
 } from '@storaensods/seeds-react';
 import { Field, reduxForm } from "redux-form";
-import MyInput from "../../common/FormControls/MyInput";
-import MyTextarea from "../../common/FormControls/MyTextarea";
 
-const ExecServiceModal = (props) => {
-    const onSubmit = (formData) => {
-        console.log(formData)
-    }
+let ExecServiceModal = props => {
+
+    const { handleCancel, handleSubmit, show, service } = props;
 
     return (
-        <ExecuteServiceForm service={props.service} {...props} />
-    )
-};
+        <form onSubmit={handleSubmit}>
+            {/* <Modal actions={[
+                { label: 'Run', type: 'positive', onClick: handleSubmit },
+                { label: 'Cancel', type: 'secondary', onClick: handleCancel },
+            ]}
+                onClose={handleCancel}
+                active={show}
+                type="attention"
+                title="Execute Service"> */}
 
-let ExecuteServiceForm = (props) => {
+                <div className={style.serviceModalContent}>
+                    {service && <h4>Executing service # {service.id}</h4>}
+                    <div className={'container-fluid'}>
+                        <div className={'row mb-1'}>
+                            <Field name={'FIO'} component={Input} label={'Executor:'} type={'text'} />
+                        </div>
 
-    return (
-        <div>
-            {
-                props.service &&
-                <Modal actions={[
-                    { label: 'Run', type: 'positive', onClick: props.onExecute },
-                    { label: 'Cancel', type: 'secondary', onClick: props.onCancel },
-                ]}
-                    onClose={props.onCancel}
-                    active={props.active}
-                    type={'attention'}
-                    title={'Execute service'}
-                >
-                    <div className={style.serviceModalContent}>
-                        <h4>Executing service # {props.service.id}</h4>
-                        <div className={'container-fluid'}>
-                            <div className={'row mb-1'}>
-                                <MyInput name={'FIO'} label={'Executor:'} value={''} />
-                                {/*<Input label={'Executor:'}/>*/}
-                            </div>
+                        {service && service.measurements.length !== 0 && <Measurements measurements={service.measurements} />}
 
-                            {props.service.measurements.length !== 0 &&
-                                <Measurements measurements={props.service.measurements} />}
-
-                            <div className={'row'}>
-                                <MyTextarea name={'message'} label={'Description:'} value={''} />
-                                {/*<TextArea label={'Description:'}/>*/}
-                            </div>
+                        <div className={'row'}>
+                            <Field name={'message'} component={TextArea} label={'Description:'} />
                         </div>
                     </div>
-                </Modal>
-            }
-        </div>
+                </div>
+
+            {/* </Modal> */}
+        </form>
     )
 }
-//ExecuteServiceForm = reduxForm({form: 'executeService'})(ExecuteServiceForm);
+
+ExecServiceModal = reduxForm({ form: 'executeService' })(ExecServiceModal);
 
 const Measurements = ({ measurements }) => {
     return (
@@ -78,8 +64,7 @@ const MeasurementPointsInputs = ({ id, numPoints }) => {
     for (let i = 1; i <= numPoints; i++) {
         inputs.push(
             <div className={'col-2'} key={id + '-' + i}>
-                <MyInput name={`measurements.${id}.${i}`} placeholder={'P' + i} />
-                {/*<Input placeholder={'P' + i}/>*/}
+                <Field name={`measurements.${id}.${i}`} component={Input} type={'text'} placeholder={'P' + i} />
             </div>
         );
     }

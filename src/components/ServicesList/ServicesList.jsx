@@ -12,11 +12,11 @@ const ServicesList = (props) => {
 
     let [execMode, setExecMode] = useState(false);
 
-    const cancelButtonClick = () => {
+    const handleCancel = () => {
         setExecMode(false);
     }
 
-    const runButtonClick = () => {
+    const handleSubmit = () => {
         setExecMode(false);
         props.onExecButtonClick();
     }
@@ -67,7 +67,7 @@ const ServicesList = (props) => {
                 />
             </div>
 
-            <ExecServiceModal active={execMode} onCancel={cancelButtonClick} onExecute={runButtonClick} service={props.selectedService}/>
+            <ExecServiceModal handleCancel={handleCancel} handleSubmit={handleSubmit} show={execMode} service={props.selectedService}/>
         </div>
     )
 }
