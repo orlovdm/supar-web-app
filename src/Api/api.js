@@ -1,7 +1,7 @@
 import * as axios from "axios";
 
 const ax = axios.create({
-    /*baseURL: 'http://localhost:8083/Api/1.0/',*/
+    // baseURL: 'http://localhost:8083/Api/1.0/',
     baseURL: 'http://localhost:44349/Api/1.0/',
     withCredentials: true,
     headers: {}
@@ -12,8 +12,8 @@ export const ServicesListAPI = {
         return ax.get(`ServicesList/?page=${page}&items=${pageSize}`).then(response => response.data);
     },
 
-    execService(id, message, FIO) {
-        return ax.put('ServicesList/', { ServiceID: id, ExecDesc: message, FIO }).then(response => response)
+    execService(data) {
+        return ax.put('ServicesList/', { Id: data.id, Message: data.message, FIO: data.FIO, Measurements: data.measurements }).then(response => response)
     }
 }
 
@@ -39,6 +39,4 @@ export const UsersAPI = {
     createUser(user) {
         return ax.put(`Users`, user);
     },
-
-
 }

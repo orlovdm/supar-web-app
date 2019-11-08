@@ -2,11 +2,14 @@ import React from "react";
 import "./NavigationBar.css"
 import {NavLink} from "react-router-dom";
 
-const NavigationBar = (props) => {
+const NavigationBar = props => {
+    
+    const {isAdmin} = props;
+
     return (
         <div className={'se-navigation-bar'}>
             <NavLink className={'se-tab-item se-tab-item--blue'}
-                     to={'/Home'}
+                     exact to={'/'}
                      activeClassName={'se-tab-item--blue-active'}>Home</NavLink>
             <NavLink className={'se-tab-item se-tab-item--blue'}
                      to={'/ServicesList'}
@@ -17,7 +20,8 @@ const NavigationBar = (props) => {
             <NavLink className={'se-tab-item se-tab-item--blue'}
                      to={'/MotoHours'}
                      activeClassName={'se-tab-item--blue-active'}>Moto Hours</NavLink>
-            {props.isAdmin &&
+            
+            {isAdmin &&
             <NavLink className={'se-tab-item se-tab-item--blue'}
                      to={'/Administration'}
                      activeClassName={'se-tab-item--blue-active'}>Administration</NavLink>}

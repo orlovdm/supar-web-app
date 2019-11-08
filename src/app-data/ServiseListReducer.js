@@ -89,6 +89,8 @@ const ServiceListReducer = (state = initialState, action) => {
     }
 }
 
+export default ServiceListReducer;
+
 /* ---Actions--- */
 /*export const exec = (services) => ({type: EXEC, services});
 export const check = (serviceId) => ({type: CHECK, serviceId});
@@ -110,14 +112,41 @@ export const getServices = (page, itemsCount) => {
     }
 }
 
-export const execService = (service) => {
+export const execService = (data) => {
+
+    let _measurements = [];
+    if (data.measurements) {
+
+        let _mr = {
+            MeasurementId: null,
+            Point: null,
+            Value: null
+        }
+
+        for (let i = 1; i < data.measurements.length; i++) {
+            if (data.measurements[i]) {
+                _mr.MeasurementId = i;
+                for (let j = 1; j < data.measurements[i].length; j++) {
+                    if (data.measurements[i][j]) {
+                        _mr.Point = j;
+                        _mr.Value = data.measurements[i][j];
+                        _measurements.push({..._mr});
+                    }
+                }
+            }
+        }
+        data.measurements = _measurements;
+    }
+
+    console.log('$$$', data);
+    
     return async (dispatch) => {
-        await ServicesListAPI.execService(service.id, '', '').then(response => {
+        await ServicesListAPI.execService(data).then(response => {
             if (response.status === 204) {
                 dispatch(getServices(1, 10));
+            } else {
+                console.warn('$$$ Some error: ', response)
             }
         })
     }
 }
-
-export default ServiceListReducer;

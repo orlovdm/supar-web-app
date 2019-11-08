@@ -33,8 +33,7 @@ let mapStateToProps = (state) => {
 class ServicesListContainer extends React.Component {
 
     componentDidMount() {
-        
-        debugger;
+
         let page = new URLSearchParams(this.props.location.search).get('page');
         if (page) {
             this.props.setCurrentPage(page);
@@ -52,8 +51,12 @@ class ServicesListContainer extends React.Component {
         }
     }
 
-    onExecButtonClick = () => {
-        this.props.execService(this.props.selectedService);
+    onExecButtonClick = values => {
+        const dataForSend = {
+            id: this.props.selectedService.id,
+            ...values
+        }
+        this.props.execService(dataForSend);
         //this.props.getServices(this.props.page, this.props.pageSize);
     }
 

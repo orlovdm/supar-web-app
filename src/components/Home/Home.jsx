@@ -6,10 +6,7 @@ import {
 const Home = () => {
     return (
         <>
-            <Pagination handlePageClick={(e) => { return console.log(e.selected); }}
-                        marginPagesDisplayed={3}
-                        pageCount={10}
-                        pageRangeDisplayed={2}/>
+            
         </>
     )
 }

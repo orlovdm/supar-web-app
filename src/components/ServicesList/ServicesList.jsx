@@ -8,7 +8,9 @@ import {
 } from '@storaensods/seeds-react';
 import ExecServiceModal from "./ExecServiceModal/ExecServiceModal";
 
-const ServicesList = (props) => {
+const ServicesList = props => {
+
+    const {services, selectedService, setSelectedService, totalCount, pageSize, page, onPageChanged, onExecButtonClick } = props;
 
     let [execMode, setExecMode] = useState(false);
 
@@ -16,9 +18,9 @@ const ServicesList = (props) => {
         setExecMode(false);
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = values => {
+        onExecButtonClick(values);
         setExecMode(false);
-        props.onExecButtonClick();
     }
 
     return (
@@ -44,30 +46,31 @@ const ServicesList = (props) => {
                     {key: 'executionTime', header: 'Execution Time, min'},
                     {key: 'files', header: '', sorting: false}
                 ]}
-                data={props.services.map(s => {
+                data={services.map(s => {
                     return {
                         ...s,
                         files: s.files && <Icon>folder_open</Icon>
                     }
                 })}
                 rowOnClick={(e) => {
-                    props.setSelectedService(e);
+                    setSelectedService(e);
                     setExecMode(true);
                 }}
             />
 
             <div className={'pagination-container'}>
-                <Pagination pageCount={Math.ceil(props.totalCount / props.pageSize)}
-                            initialPage={props.page - 1}
+                <Pagination pageCount={Math.ceil(totalCount / pageSize)}
+                            initialPage={page - 1}
                             marginPagesDisplayed={3}
                             pageRangeDisplayed={2}
                             handlePageClick={(e) => {
-                                props.onPageChanged(e.selected + 1)
+                                onPageChanged(e.selected + 1)
                             }}
                 />
             </div>
-
-            <ExecServiceModal handleCancel={handleCancel} handleSubmit={handleSubmit} show={execMode} service={props.selectedService}/>
+            
+            {selectedService &&
+            <ExecServiceModal onSubmit={handleSubmit} handleCancel={handleCancel} show={execMode} service={selectedService}/>}
         </div>
     )
 }
