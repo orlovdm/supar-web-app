@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { Link } from 'react-router-dom'
 import {
     DataTable,
     Button,
@@ -10,7 +11,7 @@ import ExecServiceModal from "./ExecServiceModal/ExecServiceModal";
 
 const ServicesList = props => {
 
-    const {services, selectedService, setSelectedService, totalCount, pageSize, page, onPageChanged, onExecButtonClick } = props;
+    const { services, selectedService, setSelectedService, totalCount, pageSize, page, onPageChanged, onExecButtonClick } = props;
 
     let [execMode, setExecMode] = useState(false);
 
@@ -35,20 +36,21 @@ const ServicesList = props => {
 
             <DataTable
                 columns={[
-                   /* {key: 'isChecked', header: '', type: 'boolean', sorting: false},*/
-                    {key: 'id', header: 'ID'},
-                    {key: 'element', header: 'Element'},
-                    {key: 'module', header: 'Module'},
-                    {key: 'machine', header: 'Machine'},
-                    {key: 'serviceMan', header: 'ServiceMan'},
-                    {key: 'description', header: 'Description'},
-                    {key: 'overdue', header: 'Overdue, days'},
-                    {key: 'executionTime', header: 'Execution Time, min'},
-                    {key: 'files', header: '', sorting: false}
+                    /* {key: 'isChecked', header: '', type: 'boolean', sorting: false},*/
+                    { key: 'id', header: 'ID' },
+                    { key: 'element', header: 'Element' },
+                    { key: 'module', header: 'Module' },
+                    { key: 'machine', header: 'Machine' },
+                    { key: 'serviceMan', header: 'ServiceMan' },
+                    { key: 'description', header: 'Description' },
+                    { key: 'overdue', header: 'Overdue, days' },
+                    { key: 'executionTime', header: 'Execution Time, min' },
+                    { key: 'files', header: '', sorting: false }
                 ]}
                 data={services.map(s => {
                     return {
                         ...s,
+                        description: <Link to={`/Service/${s.id}`}>{s.description}</Link>,
                         files: s.files && <Icon>folder_open</Icon>
                     }
                 })}
@@ -60,17 +62,17 @@ const ServicesList = props => {
 
             <div className={'pagination-container'}>
                 <Pagination pageCount={Math.ceil(totalCount / pageSize)}
-                            initialPage={page - 1}
-                            marginPagesDisplayed={3}
-                            pageRangeDisplayed={2}
-                            handlePageClick={(e) => {
-                                onPageChanged(e.selected + 1)
-                            }}
+                    initialPage={page - 1}
+                    marginPagesDisplayed={3}
+                    pageRangeDisplayed={2}
+                    handlePageClick={(e) => {
+                        onPageChanged(e.selected + 1)
+                    }}
                 />
             </div>
-            
+
             {selectedService &&
-            <ExecServiceModal onSubmit={handleSubmit} handleCancel={handleCancel} show={execMode} service={selectedService}/>}
+                <ExecServiceModal onSubmit={handleSubmit} handleCancel={handleCancel} show={execMode} service={selectedService} />}
         </div>
     )
 }

@@ -1,11 +1,9 @@
 import React from "react";
 import style from "./Modal.module.css"
-import {
-    Modal,
-    Input,
-    TextArea,
-} from "@storaensods/seeds-react";
+import { Modal } from "@storaensods/seeds-react";
 import { Field, reduxForm } from "redux-form";
+import { required, valueBetween } from "../../common/FormControls/validators";
+import { RenderInput } from "../../common/FormControls/FormControls";
 
 let ExecServiceModal = props => {
 
@@ -33,10 +31,13 @@ let ExecServiceModal = props => {
 
                     <div className={'container-fluid'}>
                         <div className={'row mb-1'}>
-                            <div className="se-input-container">
-                                <label htmlFor="FIO" className="se-label se-label--md ">Executor:</label>
-                                <Field name={'FIO'} component={'input'} type={'text'} className={'se-input se-input--md'} />
-                            </div>
+                            <Field
+                                label={'Executor:'}
+                                name={'FIO'}
+                                component={RenderInput}
+                                type={'text'}
+                                validate={[required]}
+                            />
                         </div>
 
                         {service.measurements.length !== 0 && <Measurements measurements={service.measurements} />}
@@ -65,7 +66,7 @@ const Measurements = ({ measurements }) => {
                 return (
                     <div className={'row mb-1'} key={m.id}>
                         <label className={'col-2'}>{m.name}</label>
-                        <MeasurementPointsInputs id={m.id} numPoints={m.numPoints} />
+                        <MeasurementPointsInputs id={m.id} numPoints={m.numPoints} min={m.minValue} max={m.maxValue} />
                     </div>
                 )
             })}
@@ -73,12 +74,19 @@ const Measurements = ({ measurements }) => {
     )
 };
 
-const MeasurementPointsInputs = ({ id, numPoints }) => {
+const MeasurementPointsInputs = ({ id, numPoints, min, max }) => {
     let inputs = [];
+    let minMaxValue = valueBetween(min, max)
     for (let i = 1; i <= numPoints; i++) {
         inputs.push(
             <div className={'col-2'} key={id + '-' + i}>
-                <Field name={`measurements.${id}.${i}`} component={'input'} type={'text'} placeholder={'P' + i} className={'se-input se-input--md'} />
+                <Field
+                    name={`measurements.${id}.${i}`}
+                    component={RenderInput}
+                    type={'text'}
+                    placeholder={'P' + i}
+                    validate={[minMaxValue]}
+                />
             </div>
         );
     }
