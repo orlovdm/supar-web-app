@@ -43,9 +43,9 @@ const ServicesList = props => {
                     { key: 'machine', header: 'Machine' },
                     { key: 'serviceMan', header: 'ServiceMan' },
                     { key: 'description', header: 'Description' },
+                    { key: 'files', header: '', sorting: false, width: "50px", },
                     { key: 'overdue', header: 'Overdue, days' },
                     { key: 'executionTime', header: 'Execution Time, min' },
-                    { key: 'files', header: '', sorting: false }
                 ]}
                 data={services.map(s => {
                     return {

@@ -3,7 +3,7 @@ import {
     Tile
 } from '@storaensods/seeds-react';
 
-const NorAuthorized = (props) => {
+export const NotAuthorized = props => {
     return (
         <Tile color="yellow">
             <h3>
@@ -13,7 +13,18 @@ const NorAuthorized = (props) => {
                 Sorry, but You are not Authorized to view this contect.
             </p>
         </Tile>
-)
+    )
 }
 
-export default NorAuthorized
+export const NotFound = props => {
+    return (
+        <Tile color="yellow">
+            <h3>
+                404 - Not Found
+            </h3>
+            <p>
+                Sorry, but the requested page was not found.
+            </p>
+        </Tile>
+    )
+}

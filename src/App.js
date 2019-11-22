@@ -4,10 +4,8 @@ import '@storaensods/seeds-core/dist/css/styles.css';
 import { BrowserRouter, Route, Switch, withRouter } from "react-router-dom";
 import ServicesListContainer from "./components/ServicesList/ServicesListContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import NotAuthorized from "./components/common/Error/NotAuthorized";
-import {
-    Footer
-} from '@storaensods/seeds-react';
+import { NotAuthorized, NotFound } from "./components/common/Error/NotAuthorized";
+import { Footer } from '@storaensods/seeds-react';
 import NavigationBar from "./components/NavigationBar/NavigationBar";
 import Home from "./components/Home/Home";
 import { connect, Provider } from "react-redux";
@@ -41,8 +39,8 @@ class MainApp extends Component {
                             <Route exact path='/'
                                 render={() => <Home />} />
 
-                            {/* <Route path='/Home'
-                                render={() => <Home />} /> */}
+                            <Route path='/Service/:id?'
+                                render={() => <NotFound />} />
 
                             <Route path='/ServicesList'
                                 render={() => <ServicesListContainer />} />
@@ -52,6 +50,8 @@ class MainApp extends Component {
 
                             <Route path={'/error'}
                                 render={() => <NotAuthorized />} />
+
+                            <Route render={() => <NotFound />} />
                         </Switch>
                     </div>}
                 <div className={'footer-container'}>
