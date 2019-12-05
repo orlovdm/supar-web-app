@@ -9,7 +9,7 @@ const ax = axios.create({
 
 export const ServicesListAPI = {
     getScheduledServices(page = 1, pageSize = 15) {
-        return ax.get(`ServicesList/?page=${page}&items=${pageSize}`).then(response => response.data);
+        return ax.get(`ServicesList/?page=${page}&items=${pageSize}`).then(response => response.data)
     },
 
     execService(data) {
@@ -17,26 +17,33 @@ export const ServicesListAPI = {
     }
 }
 
+export const ServiceAPI = {
+    getServise(id) {
+        return ax.get(`Services/${id}`)
+        // .then(response => response.data)
+    }
+}
+
 export const AuthAPI = {
     getAuth() {
-        return ax.get('Auth/Me').then(response => response.data);
+        return ax.get('Auth/Me').then(response => response.data)
     }
 }
 
 export const UsersAPI = {
     requestUsers() {
-        return ax.get('Users');
+        return ax.get('Users')
     },
 
     deleteUser(userId) {
-        return ax.delete(`Users/${userId}`);
+        return ax.delete(`Users/${userId}`)
     },
 
     updateUser(user) {
-        return ax.post(`Users/${user.UserID}`, user);
+        return ax.post(`Users/${user.UserID}`, user)
     },
 
     createUser(user) {
-        return ax.put(`Users`, user);
+        return ax.put(`Users`, user)
     },
 }

@@ -14,6 +14,7 @@ import { initApp } from "./app-data/AppReducer";
 import UsersContainer from "./components/Administration/Users/UsersContainer";
 import store from "./app-data/store";
 import AdministrationContainer from "./components/Administration/AdministrationContainer";
+import ServiceContainer from './components/Service/ServiceContainer';
 
 const mapStateToProps = (state) => ({
     isInitialized: state.app.isInitialized,
@@ -39,8 +40,8 @@ class MainApp extends Component {
                             <Route exact path='/'
                                 render={() => <Home />} />
 
-                            <Route path='/Service/:id?'
-                                render={() => <NotFound />} />
+                            <Route path='/Service/:id'
+                                render={() => <ServiceContainer />} />
 
                             <Route path='/ServicesList'
                                 render={() => <ServicesListContainer />} />

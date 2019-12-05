@@ -29,6 +29,23 @@ body, html {
     margin-bottom: auto;
 }
 
+.content {
+    /* max-width: 1200px; */
+    padding: 16px 32px;
+    margin: 0;
+    display: block;
+    min-height: 100vh;
+}
+
+.content-block {
+    padding: 0;
+    border: none;
+    border-radius: 3px;
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
 .pagination-container {
     margin: 1em 0;
     text-align: center;
@@ -53,4 +70,12 @@ body, html {
 
 .se-table td {
     white-space: normal !important;
+}
+
+.strong {
+    font-weight: bold;
+}
+
+.border-bottom thead>tr>th {
+    border-bottom: 1px solid #88c5ea;
 }

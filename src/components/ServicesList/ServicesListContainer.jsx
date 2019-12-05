@@ -11,7 +11,6 @@ import { withAuthRedirect } from "../../HOC/withAuthRedirect";
 import Preloader from "../common/Preloader/Preloader";
 import {
     getAllServices,
-    /*    getCheckedAll,*/
     getIsFetching,
     getPage,
     getPageSize, getSelectedService, getTotalCount,

@@ -1,4 +1,4 @@
-import {ServicesListAPI} from "../Api/api";
+import { ServicesListAPI } from "../Api/api";
 
 /*const EXEC = 'EXEC';
 const CHECK = 'CHECK';
@@ -16,7 +16,7 @@ let initialState = {
     page: 1,
     totalCount: 0,
     pageSize: 10,
-/*    checkedAll: false,*/
+    /*    checkedAll: false,*/
     isFetching: false
 }
 
@@ -66,7 +66,7 @@ const ServiceListReducer = (state = initialState, action) => {
                         machine: s.machine.name
                     }
                 })
-            };
+            }
 
         case SET_TOTAL_COUNT:
             return {
@@ -95,11 +95,11 @@ export default ServiceListReducer;
 /*export const exec = (services) => ({type: EXEC, services});
 export const check = (serviceId) => ({type: CHECK, serviceId});
 export const checkAll = () => ({type: CHECK_ALL});*/
-export const setServices = (services) => ({type: SET_SERVICES, services});
-export const setSelectedService = (service) => ({type: SET_SELECTED_SERVICE, service});
-export const setTotalCount = (count) => ({type: SET_TOTAL_COUNT, totalCount: count});
-export const setCurrentPage = (page) => ({type: SET_CURRENT_PAGE, page});
-export const toggleFetching = (isFetching) => ({type: TOGGLE_FETCHING, isFetching});
+export const setServices = (services) => ({ type: SET_SERVICES, services });
+export const setSelectedService = (service) => ({ type: SET_SELECTED_SERVICE, service });
+export const setTotalCount = (count) => ({ type: SET_TOTAL_COUNT, totalCount: count });
+export const setCurrentPage = (page) => ({ type: SET_CURRENT_PAGE, page });
+export const toggleFetching = (isFetching) => ({ type: TOGGLE_FETCHING, isFetching });
 
 /* ---Thunks--- */
 export const getServices = (page, itemsCount) => {
@@ -130,7 +130,7 @@ export const execService = (data) => {
                     if (data.measurements[i][j]) {
                         _mr.Point = j;
                         _mr.Value = data.measurements[i][j];
-                        _measurements.push({..._mr});
+                        _measurements.push({ ..._mr });
                     }
                 }
             }
@@ -138,8 +138,6 @@ export const execService = (data) => {
         data.measurements = _measurements;
     }
 
-    console.log('$$$', data);
-    
     return async (dispatch) => {
         await ServicesListAPI.execService(data).then(response => {
             if (response.status === 204) {
