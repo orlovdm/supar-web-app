@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom'
 import {
     DataTable,
-    Button,
     Pagination,
-    Tile,
     Icon
 } from '@storaensods/seeds-react';
 import ExecServiceModal from "./ExecServiceModal/ExecServiceModal";
+import Loto from "./../common/Loto/Loto"
 
 const ServicesList = props => {
 
@@ -42,7 +41,8 @@ const ServicesList = props => {
                     { key: 'module', header: 'Module' },
                     { key: 'machine', header: 'Machine' },
                     { key: 'serviceMan', header: 'ServiceMan' },
-                    { key: 'description', header: 'Description' },
+                    { key: 'isLoto', header: 'LOTO', sorting: false },
+                    { key: 'description', header: 'Description', sorting: false },
                     { key: 'files', header: '', sorting: false, width: "50px", },
                     { key: 'overdue', header: 'Overdue, days' },
                     { key: 'executionTime', header: 'Execution Time, min' },
@@ -51,7 +51,8 @@ const ServicesList = props => {
                     return {
                         ...s,
                         description: <Link to={`/Service/${s.id}`}>{s.description}</Link>,
-                        files: s.files && <Icon>folder_open</Icon>
+                        files: s.files && <Icon>folder_open</Icon>,
+                        isLoto: s.isLoto ? <Loto /> : null
                     }
                 })}
                 rowOnClick={(e) => {
