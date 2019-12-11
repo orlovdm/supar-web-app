@@ -1,7 +1,12 @@
 import React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { getServiceSelector, getExecutionsSelector, getIsFetchingSelector, getEditModeSelector, getMeasurementsLogSelector } from "./../../app-data/ServiceSelectors";
+import { getServiceSelector, 
+    getExecutionsSelector, 
+    getIsFetchingSelector, 
+    getServiceEditModeSelector, 
+    getMeasurementsLogSelector, 
+    getMeasurementsEditModeSelector } from "./../../app-data/ServiceSelectors";
 import { withRouter } from "react-router-dom";
 import { withAuthRedirect } from "./../../HOC/withAuthRedirect";
 import { getServiceData } from "./../../app-data/ServiceReducer"
@@ -14,7 +19,8 @@ let mapStateToProps = state => {
         executions: getExecutionsSelector(state),
         measurementsLog: getMeasurementsLogSelector(state),
         isFetching: getIsFetchingSelector(state),
-        editMode: getEditModeSelector(state)
+        serviceEditMode: getServiceEditModeSelector(state),
+        measurementsEditMode: getMeasurementsEditModeSelector(state),
     }
 }
 

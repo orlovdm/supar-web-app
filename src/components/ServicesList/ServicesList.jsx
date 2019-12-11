@@ -61,16 +61,15 @@ const ServicesList = props => {
                 }}
             />
 
-            <div className={'pagination-container'}>
-                <Pagination pageCount={Math.ceil(totalCount / pageSize)}
-                    initialPage={page - 1}
-                    marginPagesDisplayed={3}
-                    pageRangeDisplayed={2}
-                    handlePageClick={(e) => {
-                        onPageChanged(e.selected + 1)
-                    }}
-                />
-            </div>
+            {services.length > 0 &&
+                <div className={'pagination-container'}>
+                    <Pagination pageCount={Math.ceil(totalCount / pageSize)}
+                        initialPage={page - 1}
+                        marginPagesDisplayed={3}
+                        pageRangeDisplayed={2}
+                        handlePageClick={e => onPageChanged(e.selected + 1)}
+                    />
+                </div>}
 
             {selectedService &&
                 <ExecServiceModal onSubmit={handleSubmit} handleCancel={handleCancel} show={execMode} service={selectedService} />}

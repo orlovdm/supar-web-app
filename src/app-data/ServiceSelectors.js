@@ -10,4 +10,5 @@ const getMeasurementsLog = state => state.servicePage.measurementsLog;
 export const getMeasurementsLogSelector = createSelector(getMeasurementsLog, measurementsLog => measurementsLog);
 
 export const getIsFetchingSelector = state => state.servicePage.isFetching;
-export const getEditModeSelector = state => state.servicePage.editMode;
+export const getServiceEditModeSelector = state => state.servicePage.serviceEditMode;
+export const getMeasurementsEditModeSelector = state => state.servicePage.measurementsEdidMode;

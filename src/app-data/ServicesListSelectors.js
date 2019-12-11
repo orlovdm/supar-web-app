@@ -29,3 +29,11 @@ export const getPage = (state) => {
 export const getIsFetching = (state) => {
     return state.serviceListPage.isFetching;
 }
+
+export const getMachines = state => {
+    return state.serviceListPage.machines;
+}
+
+export const getServiceMan = state => {
+    return state.serviceListPage.serviceMan;
+}

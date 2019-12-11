@@ -8,8 +8,14 @@ const ax = axios.create({
 });
 
 export const ServicesListAPI = {
-    getScheduledServices(page = 1, pageSize = 15) {
-        return ax.get(`ServicesList/?page=${page}&items=${pageSize}`).then(response => response.data)
+    getScheduledServices(page = 1, pageSize = 15, machines = null, serviceMan = null) {
+        let params = new URLSearchParams();
+        page && params.append('page', page);
+        pageSize && params.append('items', pageSize);
+        machines && params.append('machines', machines);
+        serviceMan && params.append('serviceMan', serviceMan);
+        return ax.get('ServicesList/?' + params.toString())
+            .then(response => response.data);
     },
 
     execService(data) {
@@ -21,6 +27,22 @@ export const ServiceAPI = {
     getServise(id) {
         return ax.get(`Services/${id}`)
         // .then(response => response.data)
+    }
+}
+
+export const MachinesAPI = {
+    getMachine(id) {
+        return ax.get(`Machines/${id}`)
+    },
+
+    getMachines(page = 1, pageSize = null, groupId = null) {
+        return ax.get(`Machines/?page=${page}` + (pageSize && `&items=${pageSize}`) + (groupId && `&groupId=${groupId}`))
+    },
+}
+
+export const ServiceManAPI = {
+    getAllServiceMans() {
+        return ax.get(`ServiceMan/`)
     }
 }
 

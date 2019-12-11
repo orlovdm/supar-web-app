@@ -5,16 +5,16 @@ const SET_SERVICE = 'service/SET_SERVICE';
 const SET_EXECUTIONS = 'service/SET_EXECUTIONS';
 const SET_MEASUREMENTS = 'service/SET_MEASUREMENTS';
 const SET_FETCHING = 'service/SET_FETCHING';
-const SET_EDITMODE = 'service/SET_EDITMODE';
+const SET_SERVICE_EDITMODE = 'service/SET_SERVICE_EDITMODE';
+const SET_MEASUREMENTS_EDITMODE = 'service/SET_MEASUREMENTS_EDITMODE';
 
 const initialState = {
-    // service: { machine: {}, module: {}, element: {}, files: [], measurements: [{}] },
-    // executions: [{ measurements: [{}] }],
     service: {},
     executions: [],
     measurementsLog: [],
     isFetching: false,
-    editMode: false
+    serviceEditMode: false,
+    measurementsEditMode: false,
 }
 
 const ServiceReducer = (state = initialState, action) => {
@@ -27,10 +27,6 @@ const ServiceReducer = (state = initialState, action) => {
                     ...action.data.service,
                     lastDate: action.data.service.lastDate ? action.data.service.lastDate.split('T')[0] : null,
                     nextDate: action.data.service.nextDate ? action.data.service.nextDate.split('T')[0] : null,
-                    // machine: { ...action.data.service.machine },
-                    // module: { ...action.data.service.module },
-                    // element: { ...action.data.service.element },
-                    // measurements: [...action.data.service.measurements]
                 }
             }
 
@@ -43,7 +39,7 @@ const ServiceReducer = (state = initialState, action) => {
         case SET_MEASUREMENTS:
             return {
                 ...state,
-                measurementsLog: action.data.measurementsLog.map(m => ({...m, date: m.date.split('T')[0], ['P-' + m.point]: m.value})) //, ['P-' + m.point]: m.value
+                measurementsLog: action.data.measurementsLog.map(m => ({...m, date: m.date.split('T')[0]})) //, ['P-' + m.point]: m.value
             }
 
         case SET_FETCHING:
@@ -51,9 +47,14 @@ const ServiceReducer = (state = initialState, action) => {
                 ...state, isFetching: action.isFetching
             }
 
-        case SET_EDITMODE:
+        case SET_SERVICE_EDITMODE:
             return {
-                ...state, editMode: action.editMode
+                ...state, serviceEditMode: action.editMode
+            }
+
+        case SET_MEASUREMENTS_EDITMODE:
+            return {
+                ...state, measurementsEditMode: action.editMode
             }
 
         default: return state;
@@ -67,7 +68,8 @@ export const setService = data => ({ type: SET_SERVICE, data })
 export const setExecutions = data => ({ type: SET_EXECUTIONS, data })
 export const setMeasurements = data => ({ type: SET_MEASUREMENTS, data })
 export const toggleFetching = isFetching => ({ type: SET_FETCHING, isFetching })
-export const toggleEditMode = editMode => ({ type: SET_EDITMODE, editMode })
+export const toggleServiceEditMode = editMode => ({ type: SET_SERVICE_EDITMODE, editMode })
+export const toggleMeasurementsEditMode = editMode => ({ type: SET_MEASUREMENTS_EDITMODE, editMode })
 
 export const getServiceData = id => {
     return async dispatch => {

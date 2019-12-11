@@ -11,14 +11,13 @@ import Home from "./components/Home/Home";
 import { connect, Provider } from "react-redux";
 import { compose } from "redux";
 import { initApp } from "./app-data/AppReducer";
-import UsersContainer from "./components/Administration/Users/UsersContainer";
 import store from "./app-data/store";
 import AdministrationContainer from "./components/Administration/AdministrationContainer";
 import ServiceContainer from './components/Service/ServiceContainer';
 
 const mapStateToProps = (state) => ({
     isInitialized: state.app.isInitialized,
-    isAdmin: state.auth.isAdmin
+    isAdmin: state.auth.isAdmin,
 })
 
 class MainApp extends Component {
@@ -70,7 +69,7 @@ let AppContainer = compose(
     withRouter,
     connect(mapStateToProps, { initApp }))(MainApp);
 
-const App = (props) => {
+const App = () => {
     return (
         <BrowserRouter>
             <Provider store={store}>
@@ -80,4 +79,4 @@ const App = (props) => {
     )
 }
 
-export default App
+export default App;
