@@ -1,15 +1,21 @@
 import React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { getServiceSelector, 
-    getExecutionsSelector, 
-    getIsFetchingSelector, 
-    getServiceEditModeSelector, 
-    getMeasurementsLogSelector, 
-    getMeasurementsEditModeSelector } from "./../../app-data/ServiceSelectors";
+import {
+    getServiceSelector,
+    getExecutionsSelector,
+    getIsFetchingSelector,
+    getServiceEditModeSelector,
+    getMeasurementsLogSelector,
+    getMeasurementsEditModeSelector
+} from "./../../app-data/ServiceSelectors";
 import { withRouter } from "react-router-dom";
 import { withAuthRedirect } from "./../../HOC/withAuthRedirect";
-import { getServiceData } from "./../../app-data/ServiceReducer"
+import { 
+    getServiceData, 
+    toggleServiceEditMode, 
+    toggleMeasurementsEditMode 
+} from "./../../app-data/ServiceReducer"
 import Service from "./Service";
 import Preloader from "../common/Preloader/Preloader";
 
@@ -21,6 +27,7 @@ let mapStateToProps = state => {
         isFetching: getIsFetchingSelector(state),
         serviceEditMode: getServiceEditModeSelector(state),
         measurementsEditMode: getMeasurementsEditModeSelector(state),
+        isAdmin: state.auth.isAdmin,
     }
 }
 
@@ -41,10 +48,16 @@ class ServiceContainer extends React.Component {
         }
     }
 
+    handleEditServiceButtonClick = () => { this.props.toggleServiceEditMode(true) };
+
     render() {
         return (
             <>
-                {this.props.isFetching ? <Preloader /> : <Service {...this.props} />}
+                {
+                    (this.props.isFetching || !this.props.service.id)
+                        ? <Preloader />
+                        : <Service {...this.props} onServiceEditButtonClick={this.handleEditServiceButtonClick} />
+                }
             </>
         )
     }
@@ -53,5 +66,5 @@ class ServiceContainer extends React.Component {
 export default compose(
     withRouter,
     withAuthRedirect,
-    connect(mapStateToProps, { getServiceData })
+    connect(mapStateToProps, { getServiceData, toggleServiceEditMode, toggleMeasurementsEditMode })
 )(ServiceContainer)

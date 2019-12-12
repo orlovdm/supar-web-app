@@ -1,6 +1,4 @@
 import React from "react";
-import { setMeasurements } from "../../../app-data/ServiceReducer";
-import Measurements from "./Measurements";
 
 const ServiceSection = props => {
 
@@ -71,9 +69,6 @@ const ServiceSection = props => {
                         <p>{service.notes}</p>
                     </div>
                 </div>
-
-                {service.measurements && service.measurements.length > 0 &&
-                    <Measurements measurements={service.measurements} />}
             </div>
         </>
     )
