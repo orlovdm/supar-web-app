@@ -79,3 +79,7 @@ body, html {
 .border-bottom thead>tr>th {
     border-bottom: 1px solid #88c5ea;
 }
+
+button .se-icon {
+    font-weight: normal !important;
+}
