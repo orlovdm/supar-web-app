@@ -6,33 +6,39 @@ import {
 
 export const ListMachines = props => {
 
-    const { selectedValue, handleChange } = props;
-
-    const [machines, setMachines] = useState([]);
+    const { input, meta: { touched, error }, ...restProps } = props;
+    const [data, setData] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             const result = await MachinesAPI.getMachines();
             result.status === 200
-                ? setMachines(result.data.machines.map(x => ({ value: x.id, label: x.name })))
+                ? setData(result.data.machines.map(x => ({ value: x.id, label: x.name })))
                 : console.warn(`${result.status} - ${result.statusText}`);
         }
         fetchData();
     }, []);
 
+    const hasError = touched && error;
+
     return (
         <div className={'se-form-group'}>
             <div className={'se-input-container'}>
                 <label>Machine:</label>
-                <Select options={machines} onChange={handleChange} value={machines.filter(x => x.value === selectedValue)} />
+                <Select options={data}
+                    onChange={value => input.onChange(value)}
+                    onBlur={() => input.onBlur(input.value)}
+                    value={input.value}
+                    {...restProps}
+                />
             </div>
+            <small className="se-form-help se-form-help--invalid">{hasError && error}</small>
         </div>
     );
 }
 
 export const ListServiceMan = props => {
-    const { selectedValue, handleChange } = props;
-
+    const { input, meta: { touched, error }, ...restProps } = props;
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -45,12 +51,20 @@ export const ListServiceMan = props => {
         fetchData();
     }, []);
 
+    const hasError = touched && error;
+
     return (
         <div className={'se-form-group'}>
             <div className={'se-input-container'}>
                 <label>ServiceMan:</label>
-                <Select options={data} onChange={handleChange} value={data.filter(x => x.value === selectedValue)} />
+                <Select options={data}
+                    onChange={value => input.onChange(value)}
+                    onBlur={() => input.onBlur(input.value)}
+                    value={input.value}
+                    {...restProps}
+                />
             </div>
+            <small className="se-form-help se-form-help--invalid">{hasError && error}</small>
         </div>
     );
 }

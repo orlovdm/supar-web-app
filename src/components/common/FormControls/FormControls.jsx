@@ -3,7 +3,6 @@ import React from "react";
 export const RenderInput = ({ input, meta, ...props }) => {
 
     const { type, label } = props
-
     const hasError = meta.touched && meta.error;
 
     return (

@@ -28,7 +28,7 @@ let EditServiceSection = props => {
                     <div className={'col'}>
                         {/* <span className={'strong'}>Machine:</span>
                         <p>{service.machine.name}</p> */}
-                        <Field name={'machine'} component={ListMachines} validate={[required]} />
+                        <Field name={'machine'} component={ListMachines} validate={[required]} selectedValue={null}/>
                     </div>
                     <div className={'col'}>
                         <span className={'strong'}>Module:</span>
