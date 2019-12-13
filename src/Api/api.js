@@ -40,6 +40,26 @@ export const MachinesAPI = {
     },
 }
 
+export const ModulesAPI = {
+    getModules(machine, page, pageSize) {
+        let params = new URLSearchParams();
+        machine && params.append('machine', machine);
+        page && params.append('page', page);
+        pageSize && params.append('items', pageSize);
+        return ax.get('Modules/?' + params.toString());
+    }
+}
+
+export const ElementsAPI = {
+    getElements(module, page, pageSize) {
+        let params = new URLSearchParams();
+        module && params.append('module', module);
+        page && params.append('page', page);
+        pageSize && params.append('items', pageSize);
+        return ax.get('Elements/?' + params.toString());
+    }
+}
+
 export const ServiceManAPI = {
     getAllServiceMans() {
         return ax.get(`ServiceMan/`)
