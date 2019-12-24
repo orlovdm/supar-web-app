@@ -6,7 +6,7 @@ import {
 
 export const ListMachines = props => {
 
-    const { input, meta: { touched, error }, ...restProps } = props;
+    const { input, meta: { touched, error }, isDisabled, ...restProps } = props;
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -29,6 +29,7 @@ export const ListMachines = props => {
                     onChange={value => input.onChange(value)}
                     onBlur={() => input.onBlur(input.value)}
                     value={input.value}
+                    isDisabled={isDisabled}
                     {...restProps}
                 />
             </div>
@@ -39,7 +40,7 @@ export const ListMachines = props => {
 
 export const ListModules = props => {
 
-    const { input, meta: { touched, error }, machine, ...restProps } = props;
+    const { input, meta: { touched, error }, machine, isDisabled, ...restProps } = props;
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -62,6 +63,7 @@ export const ListModules = props => {
                     onChange={value => input.onChange(value)}
                     onBlur={() => input.onBlur(input.value)}
                     value={input.value}
+                    isDisabled={isDisabled}
                     {...restProps}
                 />
             </div>
@@ -72,7 +74,7 @@ export const ListModules = props => {
 
 export const ListElements = props => {
 
-    const { input, meta: { touched, error }, module, ...restProps } = props;
+    const { input, meta: { touched, error }, module, isDisabled, ...restProps } = props;
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -95,6 +97,7 @@ export const ListElements = props => {
                     onChange={value => input.onChange(value)}
                     onBlur={() => input.onBlur(input.value)}
                     value={input.value}
+                    isDisabled={isDisabled}
                     {...restProps}
                 />
             </div>
@@ -104,7 +107,7 @@ export const ListElements = props => {
 }
 
 export const ListServiceMan = props => {
-    const { input, meta: { touched, error }, ...restProps } = props;
+    const { input, meta: { touched, error }, isDisabled, ...restProps } = props;
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -127,6 +130,7 @@ export const ListServiceMan = props => {
                     onChange={value => input.onChange(value)}
                     onBlur={() => input.onBlur(input.value)}
                     value={input.value}
+                    isDisabled={isDisabled}
                     {...restProps}
                 />
             </div>
