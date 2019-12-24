@@ -1,8 +1,8 @@
 import * as axios from "axios";
 
 const ax = axios.create({
-    // baseURL: 'http://localhost:8083/Api/1.0/',
-    baseURL: 'http://localhost:44349/Api/1.0/',
+    baseURL: 'http://RUARZ-W-0005:8083/Api/1.0/',
+    // baseURL: 'http://localhost:44349/Api/1.0/',
     withCredentials: true,
     headers: {}
 });
